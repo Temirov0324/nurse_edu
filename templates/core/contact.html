@@ -1,13 +1,30 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Aloqa - Offline Kurs Markazi{% endblock %}
+{% block title %}Aloqa - Neyromed O'quv Markazi{% endblock %}
+
+{% block meta_description %}Neyromed O'quv Markazi bilan bog'laning. Telefon, email va manzil ma'lumotlari. Onlayn xabar yuborish formasi.{% endblock %}
+
+{% block meta_keywords %}aloqa, telefon, email, manzil, xabar yuborish, konsultatsiya, Neyromed{% endblock %}
+
+{% block breadcrumb %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb-list">
+            <li><a href="{% url 'core:index' %}">Bosh sahifa</a></li>
+            <li aria-current="page">Aloqa</li>
+        </ol>
+    </div>
+</nav>
+{% endblock %}
 
 {% block content %}
 <section class="page-header">
     <div class="container">
-        <h1>Biz bilan bog'laning</h1>
-        <p>Savollaringiz bo'lsa, biz bilan bog'laning</p>
+        <div class="page-header-content">
+            <h1>Biz bilan bog'laning</h1>
+            <p>Savollaringiz bo'lsa yoki qo'shimcha ma'lumot kerak bo'lsa, biz bilan bog'laning</p>
+        </div>
     </div>
 </section>
 
@@ -16,74 +33,237 @@
         <div class="contact-content">
             <div class="contact-info">
                 <h2>Aloqa ma'lumotlari</h2>
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <div>
-                        <h4>Manzil</h4>
-                        <p>Toshkent shahri, Yunusobod tumani</p>
+                <div class="contact-cards">
+                    <div class="contact-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Manzil</h4>
+                            <p>Toshkent shahri, Yunusobod tumani, Amir Temur ko'chasi 108</p>
+                            <a href="https://maps.google.com" target="_blank" rel="noopener" class="contact-link">
+                                <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                                Xaritada ko'rish
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone" aria-hidden="true"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Telefon</h4>
+                            <p><a href="tel:+998711234567" class="phone-link">+998 71 123 45 67</a></p>
+                            <small>Ish kunlari 9:00 dan 18:00 gacha</small>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p><a href="mailto:info@kursmarkazi.uz" class="email-link">info@kursmarkazi.uz</a></p>
+                            <small>24 soat ichida javob beramiz</small>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock" aria-hidden="true"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Ish vaqti</h4>
+                            <p>Dushanba - Juma: 9:00 - 18:00</p>
+                            <p>Shanba: 9:00 - 15:00</p>
+                            <small>Yakshanba - dam olish kuni</small>
+                        </div>
                     </div>
                 </div>
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <div>
-                        <h4>Telefon</h4>
-                        <p>+998 71 123 45 67</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <div>
-                        <h4>Email</h4>
-                        <p>info@kursmarkazi.uz</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-clock"></i>
-                    <div>
-                        <h4>Ish vaqti</h4>
-                        <p>Dushanba - Juma: 9:00 - 18:00</p>
+                
+                <!-- Social Media Links -->
+                <div class="social-links" data-aos="fade-up" data-aos-delay="500">
+                    <h4>Ijtimoiy tarmoqlarda</h4>
+                    <div class="social-icons">
+                        <a href="#" class="social-link" aria-label="Facebook sahifamiz">
+                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram sahifamiz">
+                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Telegram kanalimiz">
+                            <i class="fab fa-telegram-plane" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube kanalimiz">
+                            <i class="fab fa-youtube" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn sahifamiz">
+                            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
             </div>
             
-            <div class="contact-form-section">
-                <h2>Xabar yuborish</h2>
+            <div class="contact-form-section" data-aos="fade-up" data-aos-delay="300">
+                <div class="form-header">
+                    <h2>Xabar yuborish</h2>
+                    <p>Sizning savollaringiz bizga muhim. Tez orada javob beramiz!</p>
+                </div>
+                
                 {% if messages %}
                     {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }}">
+                        <div class="alert alert-{{ message.tags }}" role="alert">
+                            <i class="fas fa-{% if message.tags == 'success' %}check-circle{% else %}exclamation-triangle{% endif %}" aria-hidden="true"></i>
                             {{ message }}
                         </div>
                     {% endfor %}
                 {% endif %}
                 
-                <form method="post" class="contact-form">
+                <form method="post" class="contact-form" novalidate data-form="contact">
                     {% csrf_token %}
-                    <div class="form-row">
+                    <div class="form-grid">
                         <div class="form-group">
-                            {{ form.full_name.label_tag }}
+                            <label for="{{ form.full_name.id_for_label }}" class="form-label">
+                                <i class="fas fa-user form-icon" aria-hidden="true"></i>
+                                {{ form.full_name.label }}
+                                <span class="required">*</span>
+                            </label>
                             {{ form.full_name }}
+                            <div class="form-feedback"></div>
                         </div>
+                        
                         <div class="form-group">
-                            {{ form.email.label_tag }}
+                            <label for="{{ form.email.id_for_label }}" class="form-label">
+                                <i class="fas fa-envelope form-icon" aria-hidden="true"></i>
+                                {{ form.email.label }}
+                                <span class="required">*</span>
+                            </label>
                             {{ form.email }}
+                            <div class="form-feedback"></div>
                         </div>
                     </div>
-                    <div class="form-row">
+                    
+                    <div class="form-grid">
                         <div class="form-group">
-                            {{ form.phone.label_tag }}
+                            <label for="{{ form.phone.id_for_label }}" class="form-label">
+                                <i class="fas fa-phone form-icon" aria-hidden="true"></i>
+                                {{ form.phone.label }}
+                            </label>
                             {{ form.phone }}
+                            <div class="form-feedback"></div>
                         </div>
+                        
                         <div class="form-group">
-                            {{ form.subject.label_tag }}
+                            <label for="{{ form.subject.id_for_label }}" class="form-label">
+                                <i class="fas fa-tag form-icon" aria-hidden="true"></i>
+                                {{ form.subject.label }}
+                                <span class="required">*</span>
+                            </label>
                             {{ form.subject }}
+                            <div class="form-feedback"></div>
                         </div>
                     </div>
+                    
                     <div class="form-group">
-                        {{ form.message.label_tag }}
+                        <label for="{{ form.message.id_for_label }}" class="form-label">
+                            <i class="fas fa-comment form-icon" aria-hidden="true"></i>
+                            {{ form.message.label }}
+                            <span class="required">*</span>
+                        </label>
                         {{ form.message }}
+                        <div class="form-feedback"></div>
+                        <small class="form-help">Kamida 10 ta belgi kiriting</small>
                     </div>
-                    <button type="submit" class="btn btn-primary">Xabar yuborish</button>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            <span class="btn-text">
+                                <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                                Xabar yuborish
+                            </span>
+                            <span class="btn-loading" style="display: none;">
+                                <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                                Yuborilmoqda...
+                            </span>
+                        </button>
+                        <p class="form-note">
+                            <i class="fas fa-info-circle" aria-hidden="true"></i>
+                            Sizning ma'lumotlaringiz xavfsiz va maxfiy saqlanadi
+                        </p>
+                    </div>
                 </form>
+            </div>
+        </div>
+        
+        <!-- Google Maps Integration -->
+        <div class="map-section" data-aos="fade-up" data-aos-delay="600">
+            <h3>Bizni xaritada toping</h3>
+            <div class="map-container">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.7707!2d69.3097!3d41.3775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDIyJzM5LjAiTiA2OcKwMTgnMzUuMCJF!5e0!3m2!1sen!2s!4v1234567890"
+                    width="100%"
+                    height="400"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Neyromed O'quv Markazi joylashuvi"
+                    aria-label="Neyromed O'quv Markazi joylashuvi xaritada">
+                </iframe>
+                <div class="map-overlay">
+                    <div class="map-info">
+                        <h4>Neyromed O'quv Markazi</h4>
+                        <p>Yunusobod tumani, Amir Temur ko'chasi 108</p>
+                        <a href="https://maps.google.com" target="_blank" rel="noopener" class="btn btn-outline btn-sm">
+                            <i class="fas fa-directions" aria-hidden="true"></i>
+                            Yo'nalishni olish
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section" data-aos="fade-up">
+    <div class="container">
+        <div class="section-header">
+            <h2>Tez-tez so'raladigan savollar</h2>
+            <p>Eng ko'p so'raladigan savollar va javoblar</p>
+        </div>
+        
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false" data-faq-toggle>
+                    <span>Kurslarga qanday ro'yxatdan o'tish mumkin?</span>
+                    <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Kurslarga ro'yxatdan o'tish uchun bizning saytda "Kursga yozilish" tugmasini bosing yoki to'g'ridan-to'g'ri bizga murojaat qiling.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false" data-faq-toggle>
+                    <span>Kurs davomiyligi qancha?</span>
+                    <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Kurs davomiyligi yo'nalishga qarab 1 oydan 6 oygacha o'zgaradi. Aniq ma'lumot uchun kurs sahifasiga qarang.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false" data-faq-toggle>
+                    <span>Sertifikat qanday olinadi?</span>
+                    <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Kursni muvaffaqiyatli tugatganingizdan so'ng, rasmiy sertifikat beriladi. Sertifikatni onlayn tekshirish ham mumkin.</p>
+                </div>
             </div>
         </div>
     </div>

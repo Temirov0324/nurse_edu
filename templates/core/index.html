@@ -1,67 +1,315 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Neyromed O'quv Markazi - Professional Ta'lim{% endblock %}
+
+{% block meta_description %}Neyromed O'quv Markazi - zamonaviy kurslar, professional mutaxassislar va sifatli ta'lim. Karyerangizni yangi bosqichga olib chiqing!{% endblock %}
+
+{% block meta_keywords %}kurslar, ta'lim, professional rivojlanish, sertifikatlar, onlayn ta'lim, Neyromed, o'quv markazi{% endblock %}
 
 {% block content %}
 
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 data-aos="fade-up">Kelajakni bugun boshlang!</h1>
+            <p data-aos="fade-up" data-aos-delay="200">
+                Neyromed O'quv Markazi bilan professional ko'nikmalaringizni rivojlantiring. 
+                Eng so'nggi texnologiyalar va tajribali mutaxassislar yordamida o'rganish jarayonini qiziqarli qiling.
+            </p>
+            <div class="hero-actions" data-aos="fade-up" data-aos-delay="400">
+                <a href="{% url 'courses:list' %}" class="btn btn-primary">
+                    <i class="fas fa-rocket" aria-hidden="true"></i>
+                    Kurslarni ko'rish
+                </a>
+                <a href="{% url 'core:contact' %}" class="btn btn-outline">
+                    <i class="fas fa-phone" aria-hidden="true"></i>
+                    Bog'lanish
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hero Background Pattern -->
+    <div class="hero-background">
+        <div class="hero-pattern"></div>
+    </div>
+    
+    <!-- Hero Background Elements -->
+    <div class="hero-bg-elements">
+        <div class="floating-element element-1"></div>
+        <div class="floating-element element-2"></div>
+        <div class="floating-element element-3"></div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="stat-icon">
+                    <i class="fas fa-users" aria-hidden="true"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="counter" data-target="1500">0</h3>
+                    <p>Mamnun talabalar</p>
+                </div>
+            </div>
+            <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="stat-icon">
+                    <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="counter" data-target="50">0</h3>
+                    <p>Professional kurslar</p>
+                </div>
+            </div>
+            <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+                <div class="stat-icon">
+                    <i class="fas fa-award" aria-hidden="true"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="counter" data-target="1200">0</h3>
+                    <p>Berilgan sertifikatlar</p>
+                </div>
+            </div>
+            <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
+                <div class="stat-icon">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                </div>
+                <div class="stat-content">
+                    <h3><span class="counter" data-target="98">0</span>%</h3>
+                    <p>Muvaffaqiyat darajasi</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Courses Section -->
+{% if courses %}
+<section class="featured-courses" data-aos="fade-up">
+    <div class="container">
+        <div class="section-header">
+            <h2>Mashhur kurslar</h2>
+            <p>Eng talabgir va foydali kurslarimiz bilan tanishing</p>
+        </div>
+        
+        <div class="courses-grid">
+            {% for course in courses|slice:":6" %}
+            <div class="course-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:100 }}">
+                <div class="course-image">
+                    <img src="{{ course.image.url }}" alt="{{ course.title }}" loading="lazy">
+                    <div class="course-overlay">
+                        <a href="{% url 'courses:course_detail' course.id %}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-eye" aria-hidden="true"></i>
+                            Ko'rish
+                        </a>
+                    </div>
+                </div>
+                <div class="course-content">
+                    <div class="course-category">
+                        <span class="category-badge">{{ course.category|default:"Umumiy" }}</span>
+                    </div>
+                    <h3>{{ course.title }}</h3>
+                    <p>{{ course.description|truncatewords:15 }}</p>
+                    <div class="course-meta">
+                        <div class="course-duration">
+                            <i class="fas fa-clock" aria-hidden="true"></i>
+                            <span>{{ course.duration|default:"4 hafta" }}</span>
+                        </div>
+                        <div class="course-price">
+                            <i class="fas fa-tag" aria-hidden="true"></i>
+                            <span>{{ course.price|default:"Bepul" }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="section-footer">
+            <a href="{% url 'courses:list' %}" class="btn btn-outline">
+                <i class="fas fa-th-large" aria-hidden="true"></i>
+                Barcha kurslarni ko'rish
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- About Preview Section -->
+<section class="about-preview">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-text" data-aos="fade-right">
+                <h2>Neyromed O'quv Markazi haqida</h2>
+                <p>
+                    Biz zamonaviy ta'lim metodlari va professional yondashuv bilan 
+                    talabalarimizning karyera muvaffaqiyatiga hissa qo'shamiz. 
+                    5 yillik tajriba va minglab mamnun bitiruvchilar bizning 
+                    sifatli xizmatimizning isbotidir.
+                </p>
+                <ul class="about-features">
+                    <li>
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        Professional mutaxassislar
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        Zamonaviy o'quv dasturlari
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        Rasmiy sertifikatlar
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        Ish bilan ta'minlash yordami
+                    </li>
+                </ul>
+                <div class="about-actions">
+                    <a href="{% url 'core:contact' %}" class="btn btn-primary">
+                        <i class="fas fa-info-circle" aria-hidden="true"></i>
+                        Batafsil ma'lumot
+                    </a>
+                </div>
+            </div>
+            <div class="about-image" data-aos="fade-left">
+                <img src="/media/about/images.jpg" alt="Neyromed O'quv Markazi" loading="lazy">
+                <div class="image-overlay">
+                    <div class="play-button" data-video-trigger>
+                        <i class="fas fa-play" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Departments Section -->
 {% if departments %}
-<section id="departments" class="py-12 bg-gray-50">
-    <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-8">Bo'limlar</h2>
-        <div class="grid md:grid-cols-3 gap-6">
-            {% for department in departments %}
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition">
-                <img src="{{ department.image.url }}" alt="{{ department.name }}" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">{{ department.name }}</h3>
-                    <p class="text-gray-600">{{ department.description }}</p>
+<section class="departments-showcase" data-aos="fade-up">
+    <div class="container">
+        <div class="section-header">
+            <h2>Bizning bo'limlar</h2>
+            <p>Turli sohalarda chuqur bilim va ko'nikmalar egallang</p>
+        </div>
+        
+        <div class="departments-grid">
+            {% for department in departments|slice:":4" %}
+            <div class="department-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:200 }}">
+                <div class="department-image">
+                    <img src="{{ department.image.url }}" alt="{{ department.name }}" loading="lazy">
+                    <div class="department-overlay">
+                        <a href="{% url 'departments:detail' department.id %}" class="overlay-link">
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="department-content">
+                    <h3>{{ department.name }}</h3>
+                    <p>{{ department.description|truncatewords:12 }}</p>
+                    <div class="department-stats">
+                        <span class="stat">
+                            <i class="fas fa-book" aria-hidden="true"></i>
+                            {{ department.courses_count|default:5 }} kurs
+                        </span>
+                        <span class="stat">
+                            <i class="fas fa-users" aria-hidden="true"></i>
+                            {{ department.students_count|default:120 }} talaba
+                        </span>
+                    </div>
                 </div>
             </div>
             {% endfor %}
+        </div>
+        
+        <div class="section-footer">
+            <a href="{% url 'departments:list' %}" class="btn btn-outline">
+                <i class="fas fa-building" aria-hidden="true"></i>
+                Barcha bo'limlarni ko'rish
+            </a>
         </div>
     </div>
 </section>
 {% endif %}
 
-<!-- News Section -->
+<!-- Latest News Section -->
 {% if news %}
-<section id="news" class="py-12">
-    <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-8">Yangiliklar</h2>
-        <div class="grid md:grid-cols-3 gap-6">
-            {% for item in news %}
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition">
-                <img src="{{ item.image.url }}" alt="{{ item.title }}" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">{{ item.title }}</h3>
-                    <p class="text-gray-600">{{ item.content|truncatewords:20 }}</p>
-                    <a href="{% url 'news_detail' item.id %}" class="text-blue-600 font-medium hover:underline">Batafsil</a>
+<section class="latest-news">
+    <div class="container">
+        <div class="section-header">
+            <h2>So'nggi yangiliklar</h2>
+            <p>Ta'lim sohasidagi eng muhim voqealar va yangiliklardan xabardor bo'ling</p>
+        </div>
+        
+        <div class="news-grid">
+            {% for item in news|slice:":3" %}
+            <article class="news-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:100 }}">
+                <div class="news-image">
+                    <img src="{{ item.image.url }}" alt="{{ item.title }}" loading="lazy">
+                    <div class="news-date">
+                        <span class="day">{{ item.created_at|date:"d" }}</span>
+                        <span class="month">{{ item.created_at|date:"M" }}</span>
+                    </div>
                 </div>
-            </div>
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span class="news-category">Yangilik</span>
+                        <span class="news-read-time">3 daq</span>
+                    </div>
+                    <h3>
+                        <a href="{% url 'news:detail' item.id %}">{{ item.title }}</a>
+                    </h3>
+                    <p>{{ item.content|truncatewords:20 }}</p>
+                    <a href="{% url 'news:detail' item.id %}" class="read-more">
+                        Davomini o'qish
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </article>
             {% endfor %}
+        </div>
+        
+        <div class="section-footer">
+            <a href="{% url 'news:list' %}" class="btn btn-outline">
+                <i class="fas fa-newspaper" aria-hidden="true"></i>
+                Barcha yangiliklar
+            </a>
         </div>
     </div>
 </section>
 {% endif %}
 
-<!-- Courses Section -->
-{% if courses %}
-<section id="courses" class="py-12 bg-gray-50">
-    <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-8">Kurslar</h2>
-        <div class="grid md:grid-cols-3 gap-6">
-            {% for course in courses %}
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition">
-                <img src="{{ course.image.url }}" alt="{{ course.title }}" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">{{ course.title }}</h3>
-                    <p class="text-gray-600">{{ course.description|truncatewords:20 }}</p>
-                    <a href="{% url 'courses:course_detail' course.id %}" class="text-blue-600 font-medium hover:underline">Batafsil</a>
-                </div>
+<!-- Call to Action Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content" data-aos="zoom-in">
+            <h2>Kelajagingizni bugun boshlang!</h2>
+            <p>
+                Professional ko'nikmalar egallash va karyerangizni yangi bosqichga 
+                olib chiqish uchun bizga qo'shiling. Bepul konsultatsiya oling!
+            </p>
+            <div class="cta-actions">
+                <a href="{% url 'courses:enrollment' %}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-rocket" aria-hidden="true"></i>
+                    Hoziroq boshlash
+                </a>
+                <a href="tel:+998711234567" class="btn btn-outline btn-lg">
+                    <i class="fas fa-phone" aria-hidden="true"></i>
+                    +998 71 123 45 67
+                </a>
             </div>
-            {% endfor %}
         </div>
     </div>
+    
+    <!-- CTA Background -->
+    <div class="cta-bg">
+        <div class="cta-pattern"></div>
+    </div>
 </section>
-{% endif %}
 
 {% endblock %}
