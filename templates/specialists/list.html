@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mutaxassislar - Offline Kurs Markazi{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Mutaxassislarimiz</h1>
+        <p>Tajribali va malakali mutaxassislar</p>
+    </div>
+</section>
+
+<section class="specialists-page">
+    <div class="container">
+        <div class="specialists-grid">
+            {% for specialist in specialists %}
+            <div class="specialist-card">
+                {% if specialist.photo %}
+                <div class="specialist-photo">
+                    <img src="{{ specialist.photo.url }}" alt="{{ specialist.full_name }}">
+                </div>
+                {% else %}
+                <div class="specialist-photo placeholder">
+                    <i class="fas fa-user"></i>
+                </div>
+                {% endif %}
+                <div class="specialist-info">
+                    <h3>{{ specialist.full_name }}</h3>
+                    <p class="specialization">{{ specialist.specialization }}</p>
+                    <p class="experience"><i class="fas fa-briefcase"></i> {{ specialist.experience_years }} yil tajriba</p>
+                    <p class="bio">{{ specialist.bio|truncatewords:20 }}</p>
+                    <a href="{% url 'specialists:detail' specialist.pk %}" class="btn btn-primary">Batafsil</a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="empty-state">
+                <p>Hozircha mutaxassislar ro'yxati mavjud emas.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

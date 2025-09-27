@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Kurslar - Offline Kurs Markazi{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Kurslarimiz</h1>
+        <p>Professional rivojlanish uchun kurslar</p>
+    </div>
+</section>
+
+<section class="courses-page">
+    <div class="container">
+        <div class="courses-grid">
+            {% for course in courses %}
+            <div class="course-card">
+                {% if course.image %}
+                <div class="course-image">
+                    <img src="{{ course.image.url }}" alt="{{ course.name }}">
+                </div>
+                {% endif %}
+                <div class="course-content">
+                    <h3>{{ course.name }}</h3>
+                    <p>{{ course.description|truncatewords:20 }}</p>
+                    <div class="course-details">
+                        <div class="course-info">
+                            <span class="duration"><i class="fas fa-clock"></i> {{ course.duration }}</span>
+                            <span class="price"><i class="fas fa-tag"></i> {{ course.price }} so'm</span>
+                        </div>
+                        <a href="{% url 'courses:course_detail' course.pk %}" class="btn btn-primary">Dasturni ko'rish</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="empty-state">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Hozircha kurslar mavjud emas</h3>
+                <p>Yangi kurslar qo'shilishi bilan bu yerda ko'rsatiladi.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

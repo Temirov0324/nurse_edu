@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Vakansiyalar - Offline Kurs Markazi{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Vakansiyalar</h1>
+        <p>Bo'sh ish o'rinlari va imkoniyatlar</p>
+    </div>
+</section>
+
+<section class="vacancies-page">
+    <div class="container">
+        <div class="vacancies-list">
+            {% for vacancy in vacancies %}
+            <div class="vacancy-card">
+                <div class="vacancy-header">
+                    <h3>{{ vacancy.position }}</h3>
+                    {% if vacancy.salary %}
+                    <span class="salary">{{ vacancy.salary }}</span>
+                    {% endif %}
+                </div>
+                <div class="vacancy-content">
+                    <p>{{ vacancy.requirements|truncatewords:30 }}</p>
+                    <div class="vacancy-meta">
+                        <span class="date"><i class="fas fa-calendar"></i> {{ vacancy.created_at|date:"d.m.Y" }}</span>
+                        <span class="email"><i class="fas fa-envelope"></i> {{ vacancy.contact_email }}</span>
+                    </div>
+                    <a href="{% url 'vacancies:detail' vacancy.pk %}" class="btn btn-primary">Batafsil ko'rish</a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="empty-state">
+                <i class="fas fa-briefcase"></i>
+                <h3>Hozircha bo'sh ish o'rinlari yo'q</h3>
+                <p>Yangi vakansiyalar paydo bo'lishi bilan bu yerda e'lon qilamiz.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

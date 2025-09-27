@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ vacancy.position }} - Vakansiyalar{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="{% url 'core:index' %}">Bosh sahifa</a>
+            <span>/</span>
+            <a href="{% url 'vacancies:list' %}">Vakansiyalar</a>
+            <span>/</span>
+            <span>{{ vacancy.position }}</span>
+        </nav>
+    </div>
+</section>
+
+<section class="vacancy-detail">
+    <div class="container">
+        <div class="vacancy-info">
+            <header class="vacancy-header">
+                <h1>{{ vacancy.position }}</h1>
+                {% if vacancy.salary %}
+                <div class="salary-badge">{{ vacancy.salary }}</div>
+                {% endif %}
+            </header>
+            
+            <div class="vacancy-content">
+                <h3>Talablar</h3>
+                <div class="requirements">
+                    {{ vacancy.requirements|linebreaks }}
+                </div>
+            </div>
+            
+            <div class="contact-info">
+                <h3>Murojaat uchun</h3>
+                <div class="contact-details">
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:{{ vacancy.contact_email }}">{{ vacancy.contact_email }}</a></p>
+                    <p><i class="fas fa-calendar"></i> E'lon sanasi: {{ vacancy.created_at|date:"d.m.Y" }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{% url 'vacancies:application_with_vacancy' vacancy.pk %}" class="btn btn-primary">
+                <i class="fas fa-envelope"></i> Ariza yuborish
+            </a>
+            <a href="{% url 'vacancies:list' %}" class="btn btn-outline">Barcha vakansiyalar</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

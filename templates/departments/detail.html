@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ department.name }} - Bo'limlar{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="{% url 'core:index' %}">Bosh sahifa</a>
+            <span>/</span>
+            <a href="{% url 'departments:list' %}">Bo'limlar</a>
+            <span>/</span>
+            <span>{{ department.name }}</span>
+        </nav>
+        <h1>{{ department.name }}</h1>
+    </div>
+</section>
+
+<section class="department-detail">
+    <div class="container">
+        <div class="detail-content">
+            {% if department.image %}
+            <div class="detail-image">
+                <img src="{{ department.image.url }}" alt="{{ department.name }}">
+            </div>
+            {% endif %}
+            <div class="detail-text">
+                <h2>{{ department.name }}</h2>
+                <div class="description">
+                    {{ department.description|linebreaks }}
+                </div>
+            </div>
+        </div>
+        <div class="action-buttons">
+            <a href="{% url 'departments:list' %}" class="btn btn-outline">Orqaga qaytish</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

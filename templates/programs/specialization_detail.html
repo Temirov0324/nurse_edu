@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ specialization.name }} - Mutaxassisliklar{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="{% url 'core:index' %}">Bosh sahifa</a>
+            <span>/</span>
+            <a href="{% url 'programs:direction_list' %}">Yo'nalishlar</a>
+            <span>/</span>
+            <a href="{% url 'programs:direction_detail' specialization.direction.pk %}">{{ specialization.direction.name }}</a>
+            <span>/</span>
+            <span>{{ specialization.name }}</span>
+        </nav>
+    </div>
+</section>
+
+<section class="specialization-detail">
+    <div class="container">
+        <div class="specialization-overview">
+            <h1>{{ specialization.name }}</h1>
+            <div class="specialization-meta">
+                <div class="meta-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Yo'nalish: {{ specialization.direction.name }}</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Davomiyligi: {{ specialization.duration }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="specialization-content">
+            <div class="content-section">
+                <h2>Ta'rif</h2>
+                <div class="description">
+                    {{ specialization.description|linebreaks }}
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Kirish talablari</h2>
+                <div class="requirements">
+                    {{ specialization.requirements|linebreaks }}
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Karyera imkoniyatlari</h2>
+                <div class="career-prospects">
+                    {{ specialization.career_prospects|linebreaks }}
+                </div>
+            </div>
+        </div>
+
+        {% if study_plans %}
+        <div class="study-plans-section">
+            <h2>O'quv rejalari</h2>
+            <div class="study-plans-list">
+                {% for plan in study_plans %}
+                <div class="study-plan-card">
+                    <div class="plan-header">
+                        <h3>{{ plan.title }}</h3>
+                        <div class="plan-badges">
+                            <span class="badge badge-{{ plan.plan_type }}">
+                                {{ plan.get_plan_type_display }}
+                            </span>
+                            <span class="badge badge-year">{{ plan.academic_year }}</span>
+                            {% if plan.semester %}
+                            <span class="badge badge-semester">{{ plan.semester }}-semestr</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <p>{{ plan.description|truncatewords:30 }}</p>
+                    <div class="plan-meta">
+                        <span class="subjects-count">
+                            <i class="fas fa-book"></i>
+                            {{ plan.subjects.count }} ta fan
+                        </span>
+                        {% if plan.file %}
+                        <a href="{{ plan.file.url }}" class="file-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i> PDF yuklab olish
+                        </a>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'programs:study_plan_detail' plan.pk %}" class="btn btn-primary">Batafsil ko'rish</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="action-buttons">
+            <a href="{% url 'programs:direction_detail' specialization.direction.pk %}" class="btn btn-outline">Yo'nalishga qaytish</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

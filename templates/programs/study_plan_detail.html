@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ study_plan.title }} - O'quv rejasi{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="{% url 'core:index' %}">Bosh sahifa</a>
+            <span>/</span>
+            <a href="{% url 'programs:direction_list' %}">Yo'nalishlar</a>
+            <span>/</span>
+            <a href="{% url 'programs:direction_detail' study_plan.specialization.direction.pk %}">{{ study_plan.specialization.direction.name }}</a>
+            <span>/</span>
+            <a href="{% url 'programs:specialization_detail' study_plan.specialization.pk %}">{{ study_plan.specialization.name }}</a>
+            <span>/</span>
+            <span>{{ study_plan.title }}</span>
+        </nav>
+    </div>
+</section>
+
+<section class="study-plan-detail">
+    <div class="container">
+        <div class="plan-header">
+            <h1>{{ study_plan.title }}</h1>
+            <div class="plan-info">
+                <div class="info-item">
+                    <strong>Mutaxassislik:</strong>
+                    <span>{{ study_plan.specialization.name }}</span>
+                </div>
+                <div class="info-item">
+                    <strong>O'quv yili:</strong>
+                    <span>{{ study_plan.academic_year }}</span>
+                </div>
+                {% if study_plan.semester %}
+                <div class="info-item">
+                    <strong>Semestr:</strong>
+                    <span>{{ study_plan.semester }}</span>
+                </div>
+                {% endif %}
+                <div class="info-item">
+                    <strong>Reja turi:</strong>
+                    <span>{{ study_plan.get_plan_type_display }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="plan-description">
+            <h2>Ta'rif</h2>
+            <p>{{ study_plan.description }}</p>
+        </div>
+
+        {% if study_plan.file %}
+        <div class="file-download">
+            <a href="{{ study_plan.file.url }}" class="btn btn-outline" target="_blank">
+                <i class="fas fa-file-pdf"></i> PDF formatda yuklab olish
+            </a>
+        </div>
+        {% endif %}
+
+        {% if subjects %}
+        <div class="subjects-section">
+            <div class="subjects-header">
+                <h2>Fanlar ro'yxati</h2>
+                <div class="summary-stats">
+                    <div class="stat-item">
+                        <strong>{{ subjects.count }}</strong>
+                        <span>ta fan</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong>{{ total_credits }}</strong>
+                        <span>kredit</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong>{{ total_hours }}</strong>
+                        <span>soat</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subjects-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Fan nomi</th>
+                            <th>Kod</th>
+                            <th>Kredit</th>
+                            <th>Ma'ruza</th>
+                            <th>Amaliy</th>
+                            <th>Lab.</th>
+                            <th>Mustaqil</th>
+                            <th>Jami</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for subject in subjects %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                                <strong>{{ subject.name }}</strong>
+                                {% if subject.prerequisites %}
+                                <div class="prerequisites">
+                                    <small>Oldindan: {{ subject.prerequisites }}</small>
+                                </div>
+                                {% endif %}
+                            </td>
+                            <td>{{ subject.code|default:"-" }}</td>
+                            <td>{{ subject.credits }}</td>
+                            <td>{{ subject.lecture_hours }}</td>
+                            <td>{{ subject.practical_hours }}</td>
+                            <td>{{ subject.laboratory_hours }}</td>
+                            <td>{{ subject.independent_hours }}</td>
+                            <td><strong>{{ subject.total_hours }}</strong></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td colspan="3"><strong>Jami:</strong></td>
+                            <td><strong>{{ total_credits }}</strong></td>
+                            <td colspan="4"></td>
+                            <td><strong>{{ total_hours }}</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="action-buttons">
+            <a href="{% url 'programs:specialization_detail' study_plan.specialization.pk %}" class="btn btn-outline">Mutaxassislikga qaytish</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Yangiliklar - Offline Kurs Markazi{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Yangiliklar</h1>
+        <p>So'nggi yangiliklar va e'lonlar</p>
+    </div>
+</section>
+
+<section class="news-page">
+    <div class="container">
+        <div class="news-grid">
+            {% for article in news %}
+            <article class="news-card">
+                {% if article.image %}
+                <div class="news-image">
+                    <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                </div>
+                {% endif %}
+                <div class="news-content">
+                    <h3><a href="{% url 'news:detail' article.pk %}">{{ article.title }}</a></h3>
+                    <p>{{ article.content|truncatewords:40 }}</p>
+                    <div class="news-meta">
+                        <span class="date"><i class="fas fa-calendar"></i> {{ article.created_at|date:"d.m.Y H:i" }}</span>
+                        <a href="{% url 'news:detail' article.pk %}" class="read-more">Batafsil o'qish</a>
+                    </div>
+                </div>
+            </article>
+            {% empty %}
+            <div class="empty-state">
+                <p>Hozircha yangiliklar mavjud emas.</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Pagination -->
+        {% if news.has_other_pages %}
+        <div class="pagination">
+            {% if news.has_previous %}
+                <a href="?page={{ news.previous_page_number }}" class="pagination-btn">&laquo; Oldingi</a>
+            {% endif %}
+            
+            <span class="current-page">
+                Sahifa {{ news.number }} / {{ news.paginator.num_pages }}
+            </span>
+            
+            {% if news.has_next %}
+                <a href="?page={{ news.next_page_number }}" class="pagination-btn">Keyingi &raquo;</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

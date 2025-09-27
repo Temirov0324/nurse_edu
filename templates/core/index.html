@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Departments Section -->
+{% if departments %}
+<section id="departments" class="py-12 bg-gray-50">
+    <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-8">Bo'limlar</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            {% for department in departments %}
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition">
+                <img src="{{ department.image.url }}" alt="{{ department.name }}" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">{{ department.name }}</h3>
+                    <p class="text-gray-600">{{ department.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- News Section -->
+{% if news %}
+<section id="news" class="py-12">
+    <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-8">Yangiliklar</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            {% for item in news %}
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition">
+                <img src="{{ item.image.url }}" alt="{{ item.title }}" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">{{ item.title }}</h3>
+                    <p class="text-gray-600">{{ item.content|truncatewords:20 }}</p>
+                    <a href="{% url 'news_detail' item.id %}" class="text-blue-600 font-medium hover:underline">Batafsil</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Courses Section -->
+{% if courses %}
+<section id="courses" class="py-12 bg-gray-50">
+    <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-8">Kurslar</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            {% for course in courses %}
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition">
+                <img src="{{ course.image.url }}" alt="{{ course.title }}" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">{{ course.title }}</h3>
+                    <p class="text-gray-600">{{ course.description|truncatewords:20 }}</p>
+                    <a href="{% url 'courses:course_detail' course.id %}" class="text-blue-600 font-medium hover:underline">Batafsil</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}

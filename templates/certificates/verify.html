@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sertifikatni tekshirish - Offline Kurs Markazi{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Sertifikatni tekshirish</h1>
+        <p>Sertifikat raqamini kiriting va uning haqiqiyligini tekshiring</p>
+    </div>
+</section>
+
+<section class="verify-page">
+    <div class="container">
+        <div class="verify-form-container">
+            <form method="get" class="verify-form">
+                <div class="form-group">
+                    <label for="number">Sertifikat raqami</label>
+                    <input 
+                        type="text" 
+                        id="number" 
+                        name="number" 
+                        class="form-control"
+                        placeholder="Sertifikat raqamini kiriting"
+                        value="{{ request.GET.number }}"
+                        required
+                    >
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Tekshirish
+                </button>
+            </form>
+        </div>
+
+        {% if error_message %}
+        <div class="verify-result error">
+            <i class="fas fa-times-circle"></i>
+            <h3>Sertifikat topilmadi</h3>
+            <p>{{ error_message }}</p>
+        </div>
+        {% endif %}
+
+        {% if certificate %}
+        <div class="verify-result success">
+            <i class="fas fa-check-circle"></i>
+            <h3>Sertifikat tasdiqlandi</h3>
+            <div class="certificate-info">
+                <div class="info-row">
+                    <strong>Sertifikat:</strong>
+                    <span>{{ certificate.certificate.title }}</span>
+                </div>
+                <div class="info-row">
+                    <strong>Talaba:</strong>
+                    <span>{{ certificate.student_name }}</span>
+                </div>
+                <div class="info-row">
+                    <strong>Berilgan sana:</strong>
+                    <span>{{ certificate.issue_date|date:"d.m.Y" }}</span>
+                </div>
+                <div class="info-row">
+                    <strong>Raqam:</strong>
+                    <span>{{ certificate.certificate_number }}</span>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

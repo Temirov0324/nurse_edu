@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ course.name }} - Kurslar{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="{% url 'core:index' %}">Bosh sahifa</a>
+            <span>/</span>
+            <a href="{% url 'courses:list' %}">Kurslar</a>
+            <span>/</span>
+            <span>{{ course.name }}</span>
+        </nav>
+    </div>
+</section>
+
+<section class="course-detail">
+    <div class="container">
+        <div class="course-overview">
+            <div class="course-info">
+                <h1>{{ course.name }}</h1>
+                <p class="course-description">{{ course.description }}</p>
+                <div class="course-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Davomiyligi: {{ course.duration }}</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-tag"></i>
+                        <span>Narxi: {{ course.price }} so'm</span>
+                    </div>
+                </div>
+            </div>
+            {% if course.image %}
+            <div class="course-image">
+                <img src="{{ course.image.url }}" alt="{{ course.name }}">
+            </div>
+            {% endif %}
+        </div>
+
+        {% if modules %}
+        <div class="course-modules">
+            <h2>Kurs dasturi</h2>
+            <div class="modules-list">
+                {% for module in modules %}
+                <div class="module-item">
+                    <div class="module-number">{{ module.order }}</div>
+                    <div class="module-content">
+                        <h3>{{ module.title }}</h3>
+                        <p>{{ module.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="action-buttons">
+            <a href="{% url 'courses:enrollment_with_course' course.pk %}" class="btn btn-primary">Kursga yozilish</a>
+            <a href="{% url 'courses:list' %}" class="btn btn-outline">Barcha kurslar</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

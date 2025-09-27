@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Ta'lim yo'nalishlari - Offline Kurs Markazi{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Ta'lim yo'nalishlari</h1>
+        <p>Bizning ta'lim yo'nalishlari va mutaxassisliklar</p>
+    </div>
+</section>
+
+<section class="directions-page">
+    <div class="container">
+        <div class="directions-grid">
+            {% for direction in directions %}
+            <div class="direction-card">
+                {% if direction.image %}
+                <div class="direction-image">
+                    <img src="{{ direction.image.url }}" alt="{{ direction.name }}">
+                </div>
+                {% endif %}
+                <div class="direction-content">
+                    <h3>{{ direction.name }}</h3>
+                    <p>{{ direction.description|truncatewords:30 }}</p>
+                    <div class="specializations-count">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>{{ direction.specializations.count }} ta mutaxassislik</span>
+                    </div>
+                    <a href="{% url 'programs:direction_detail' direction.pk %}" class="btn btn-primary">Mutaxassisliklarni ko'rish</a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="empty-state">
+                <i class="fas fa-book"></i>
+                <h3>Hozircha yo'nalishlar mavjud emas</h3>
+                <p>Yangi yo'nalishlar qo'shilishi bilan bu yerda ko'rsatiladi.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

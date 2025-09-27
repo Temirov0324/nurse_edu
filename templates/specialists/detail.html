@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ specialist.full_name }} - Mutaxassislar{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="{% url 'core:index' %}">Bosh sahifa</a>
+            <span>/</span>
+            <a href="{% url 'specialists:list' %}">Mutaxassislar</a>
+            <span>/</span>
+            <span>{{ specialist.full_name }}</span>
+        </nav>
+    </div>
+</section>
+
+<section class="specialist-detail">
+    <div class="container">
+        <div class="specialist-profile">
+            <div class="profile-image">
+                {% if specialist.photo %}
+                <img src="{{ specialist.photo.url }}" alt="{{ specialist.full_name }}">
+                {% else %}
+                <div class="placeholder-image">
+                    <i class="fas fa-user"></i>
+                </div>
+                {% endif %}
+            </div>
+            <div class="profile-info">
+                <h1>{{ specialist.full_name }}</h1>
+                <h2 class="specialization">{{ specialist.specialization }}</h2>
+                <div class="experience">
+                    <i class="fas fa-briefcase"></i>
+                    <span>{{ specialist.experience_years }} yil tajriba</span>
+                </div>
+                <div class="bio">
+                    <h3>Qisqacha ma'lumot</h3>
+                    {{ specialist.bio|linebreaks }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{% url 'specialists:list' %}" class="btn btn-outline">Barcha mutaxassislar</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

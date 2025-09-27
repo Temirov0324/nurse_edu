@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ direction.name }} - Ta'lim yo'nalishlari{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="{% url 'core:index' %}">Bosh sahifa</a>
+            <span>/</span>
+            <a href="{% url 'programs:direction_list' %}">Yo'nalishlar</a>
+            <span>/</span>
+            <span>{{ direction.name }}</span>
+        </nav>
+        <h1>{{ direction.name }}</h1>
+    </div>
+</section>
+
+<section class="direction-detail">
+    <div class="container">
+        <div class="direction-overview">
+            <div class="direction-info">
+                <h2>{{ direction.name }}</h2>
+                <div class="description">
+                    {{ direction.description|linebreaks }}
+                </div>
+            </div>
+            {% if direction.image %}
+            <div class="direction-image">
+                <img src="{{ direction.image.url }}" alt="{{ direction.name }}">
+            </div>
+            {% endif %}
+        </div>
+
+        {% if specializations %}
+        <div class="specializations-section">
+            <h2>Mutaxassisliklar</h2>
+            <div class="specializations-grid">
+                {% for specialization in specializations %}
+                <div class="specialization-card">
+                    <h3>{{ specialization.name }}</h3>
+                    <p>{{ specialization.description|truncatewords:25 }}</p>
+                    <div class="specialization-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>{{ specialization.duration }}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-book"></i>
+                            <span>{{ specialization.study_plans.count }} ta o'quv rejasi</span>
+                        </div>
+                    </div>
+                    <a href="{% url 'programs:specialization_detail' specialization.pk %}" class="btn btn-primary">O'quv rejalarini ko'rish</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="action-buttons">
+            <a href="{% url 'programs:direction_list' %}" class="btn btn-outline">Barcha yo'nalishlar</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

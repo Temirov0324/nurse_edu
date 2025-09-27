@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ certificate.title }} - Sertifikatlar{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="{% url 'core:index' %}">Bosh sahifa</a>
+            <span>/</span>
+            <a href="{% url 'certificates:list' %}">Sertifikatlar</a>
+            <span>/</span>
+            <span>{{ certificate.title }}</span>
+        </nav>
+    </div>
+</section>
+
+<section class="certificate-detail">
+    <div class="container">
+        <div class="certificate-overview">
+            <div class="certificate-info">
+                <h1>{{ certificate.title }}</h1>
+                <div class="certificate-type">
+                    <span class="badge badge-{{ certificate.certificate_type }}">
+                        {{ certificate.get_certificate_type_display }}
+                    </span>
+                </div>
+                <p class="certificate-description">{{ certificate.description }}</p>
+                {% if certificate.validity_period %}
+                <div class="validity-info">
+                    <i class="fas fa-clock"></i>
+                    <span>Amal qilish muddati: {{ certificate.validity_period }}</span>
+                </div>
+                {% endif %}
+            </div>
+            {% if certificate.image %}
+            <div class="certificate-sample">
+                <img src="{{ certificate.image.url }}" alt="{{ certificate.title }}">
+                <p class="sample-text">Sertifikat namunasi</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="requirements-section">
+            <h2>Olish shartlari</h2>
+            <div class="requirements-content">
+                {{ certificate.requirements|linebreaks }}
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="{% url 'certificates:list' %}" class="btn btn-outline">Barcha sertifikatlar</a>
+            <a href="{% url 'certificates:verify' %}" class="btn btn-primary">
+                <i class="fas fa-search"></i> Sertifikatni tekshirish
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
